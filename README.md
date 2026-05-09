@@ -1,2 +1,50 @@
 # JinYin_xuexi_Hanyu01
 Hành trình học Tiếng Trung của JinYin
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Hành Trình Học Tiếng Trung của JinYin</title>
+    <style>
+        body { margin: 0; display: flex; justify-content: center; background: #fdfbf7; }
+        .map-wrapper { position: relative; width: fit-content; margin-top: 20px; border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        /* Ảnh nền bản đồ của bạn */
+        .map-img { display: block; max-width: 1000px; height: auto; }
+
+        /* Style chung cho các nút điểm dừng */
+        .node {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .node:hover { transform: translate(-50%, -60%) scale(1.1); }
+        .icon { width: 40px; height: 40px; background: #fff; border-radius: 50%; border: 2px solid #ff9f43; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .label { display: block; margin-top: 5px; background: #fff; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: bold; color: #333; border: 1px solid #ff9f43; }
+
+        /* VỊ TRÍ CÁC ĐIỂM (Bạn sẽ chỉnh % ở đây để khớp với ảnh của bạn) */
+        .hsk1 { top: 80%; left: 20%; }
+        .hsk2 { top: 70%; left: 45%; }
+        .hsk3 { top: 55%; left: 30%; }
+        .hsk4 { top: 40%; left: 60%; }
+        .hsk5 { top: 25%; left: 50%; }
+        .hsk6 { top: 15%; left: 80%; }
+    </style>
+</head>
+<body>
+    <div class="map-wrapper">
+        <!-- Thay thế roadmap.png bằng tên file ảnh của bạn -->
+        <img src="roadmap.png" class="map-img">
+
+        <!-- Các điểm dừng tương ứng với HSK hoặc chặng học -->
+        <a href="#" class="node hsk1"><div class="icon">🐢</div><span class="label">HSK 1</span></a>
+        <a href="#" class="node hsk2"><div class="icon">🐸</div><span class="label">HSK 2</span></a>
+        <a href="#" class="node hsk3"><div class="icon">🦁</div><span class="label">HSK 3</span></a>
+        <a href="#" class="node hsk4"><div class="icon">🦊</div><span class="label">HSK 4</span></a>
+        <a href="#" class="node hsk5"><div class="icon">🦅</div><span class="label">HSK 5</span></a>
+        <a href="#" class="node hsk6"><div class="icon">🐲</div><span class="label">HSK 6</span></a>
+    </div>
+</body>
+</html>
