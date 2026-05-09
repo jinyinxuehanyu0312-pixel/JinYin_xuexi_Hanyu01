@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn Bài Khóa - HSK 2</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9bad1; /* Màu xanh nhạt nhẹ nhàng */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .selection-box {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            padding: 30px;
+            border-radius: 25px;
+            border: 2px solid #a7d08c;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            text-align: center;
+            color: #4a7c44;
+            margin-bottom: 25px;
+        }
+
+        .option-item {
+            background: #f9fff5;
+            border: 1.5px solid #a7d08c;
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .option-item:hover {
+            transform: scale(1.02);
+            background: #eef9e8;
+        }
+
+        .option-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title {
+            color: #4a7c44;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .badge {
+            background: white;
+            border: 1px solid #ff9f43;
+            color: #ff9f43;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="selection-box">
+        <h2>Chọn Bài Khóa</h2>
+
+        <a href="hsk2_bai1_bk1" class="option-item">
+            <div class="option-text">
+                <span class="title">Bài khóa 1</span>
+                <span class="subtitle">Ở trường</span>
+            </div>
+            <span class="badge">0/4</span>
+        </a>
+
+        <a href="hsk2_bai1_bk2" class="option-item">
+            <div class="option-text">
+                <span class="title">Bài khóa 2</span>
+                <span class="subtitle">Xem ảnh</span>
+            </div>
+            <span class="badge">0/4</span>
+        </a>
+
+        <a href="hsk2_bai1_bk3" class="option-item">
+            <div class="option-text">
+                <span class="title">Bài khóa 3</span>
+                <span class="subtitle">Ở nhà</span>
+            </div>
+            <span class="badge">0/4</span>
+        </a>
+
+       <a href="hsk2_bai1_bk4" class="option-item">
+            <div class="option-text">
+                <span class="title">Bài khóa 4</span>
+                <span class="subtitle">Ở nhà</span>
+            </div>
+            <span class="badge">0/4</span>
+        </a>
+    </div>
+
+</body>
+</html>
