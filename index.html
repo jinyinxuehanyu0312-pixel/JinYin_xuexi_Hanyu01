@@ -2,47 +2,131 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Hành Trình Học Tiếng Trung của Ngân</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hành Trình Học Tiếng Trung - JinYin</title>
     <style>
-        body { margin: 0; display: flex; justify-content: center; background: #fdfbf7; }
-        .map-wrapper { position: relative; width: fit-content; margin-top: 20px; border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        /* Cài đặt thanh Menu (Header) */
+        header {
+            background-color: #ffffff;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #d14d72; /* Màu hồng đậm phù hợp với roadmap của bạn */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #d14d72;
+        }
+
+        /* Phần chứa bản đồ (Roadmap) */
+        body { margin: 0; background: #fff5f7; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
-        /* Ảnh nền bản đồ của bạn */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .map-container { 
+            position: relative; 
+            width: fit-content; 
+            border: 10px solid #fff; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            overflow: hidden; 
+        }
+
         .map-img { display: block; max-width: 1000px; height: auto; }
 
-        /* Style chung cho các nút điểm dừng */
+        /* Nút điểm dừng (Nút tàng hình để bấm lên ảnh) */
         .node {
             position: absolute;
             transform: translate(-50%, -50%);
-            text-align: center;
-            text-decoration: none;
-            transition: 0.3s;
+            z-index: 10;
         }
-        .node:hover { transform: translate(-50%, -60%) scale(1.1); }
-        .icon { width: 40px; height: 40px; background: #fff; border-radius: 50%; border: 2px solid #ff9f43; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
-        .label { display: block; margin-top: 5px; background: #fff; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: bold; color: #333; border: 1px solid #ff9f43; }
 
-        /* VỊ TRÍ CÁC ĐIỂM (Bạn sẽ chỉnh % ở đây để khớp với ảnh của bạn) */
-        .hsk1 { top: 80%; left: 20%; }
-        .hsk2 { top: 70%; left: 45%; }
-        .hsk3 { top: 55%; left: 30%; }
-        .hsk4 { top: 40%; left: 60%; }
-        .hsk5 { top: 25%; left: 50%; }
-        .hsk6 { top: 15%; left: 80%; }
+        .node .hotspot {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0); 
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* TỌA ĐỘ (Cần bạn tinh chỉnh lại theo % cho khớp ảnh) */
+        .chang1 { top: 75%; left: 10%; }
+        .chang2 { top: 55%; left: 23%; }
+        .chang3 { top: 38%; left: 35%; }
+        .chang4 { top: 40%; left: 50%; }
+        .chang5 { top: 40%; left: 63%; }
+        .chang6 { top: 55%; left: 75%; }
+        .chang7 { top: 58%; left: 90%; }
     </style>
 </head>
 <body>
-    <div class="map-wrapper">
-        <!-- Thay thế roadmap.png bằng tên file ảnh của bạn -->
-        <img src="roadmap.png" class="map-img">
 
-        <!-- Các điểm dừng tương ứng với HSK hoặc chặng học -->
-        <a href="#" class="node hsk1"><div class="icon">🐢</div><span class="label">HSK 1</span></a>
-        <a href="#" class="node hsk2"><div class="icon">🐸</div><span class="label">HSK 2</span></a>
-        <a href="#" class="node hsk3"><div class="icon">🦁</div><span class="label">HSK 3</span></a>
-        <a href="#" class="node hsk4"><div class="icon">🦊</div><span class="label">HSK 4</span></a>
-        <a href="#" class="node hsk5"><div class="icon">🦅</div><span class="label">HSK 5</span></a>
-        <a href="#" class="node hsk6"><div class="icon">🐲</div><span class="label">HSK 6</span></a>
+    <!-- PHẦN ĐẦU TRANG VÀ DANH MỤC -->
+    <header>
+        <div class="logo">
+            <span>🌸</span> JINYIN XUEXI
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Trang Chủ</a></li>
+                <li><a href="#">Lộ Trình HSK</a></li>
+                <li><a href="#">Ngữ Pháp</a></li>
+                <li><a href="#">Từ Vựng</a></li>
+                <li><a href="#">Liên Hệ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <h1>Hành Trình Học Tiếng Trung Của Tớ</h1>
+        
+        <div class="map-container">
+            <!-- Đảm bảo tên file ảnh này chính xác trên GitHub của bạn -->
+            <img src="roadmap.png" class="map-img">
+
+            <!-- Các điểm tương tác -->
+            <a href="#" class="node chang1"><div class="hotspot"></div></a>
+            <a href="#" class="node chang2"><div class="hotspot"></div></a>
+            <a href="#" class="node chang3"><div class="hotspot"></div></a>
+            <a href="#" class="node chang4"><div class="hotspot"></div></a>
+            <a href="#" class="node chang5"><div class="hotspot"></div></a>
+            <a href="#" class="node chang6"><div class="hotspot"></div></a>
+            <a href="#" class="node chang7"><div class="hotspot"></div></a>
+        </div>
     </div>
+
 </body>
 </html>
