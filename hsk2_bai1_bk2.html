@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Chép Chính Tả HSK 2</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fdf2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .game-container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .question-box { font-size: 20px; color: #d14d72; margin-bottom: 20px; font-weight: bold; line-height: 1.5; }
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            font-size: 18px;
+            border: 2px solid #a7d08c;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            outline: none;
+            text-align: center;
+        }
+        .btn {
+            background: #4a7c44;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .btn:hover { background: #3d6638; }
+        .result { margin-top: 20px; font-weight: bold; height: 24px; }
+        .score-board { font-size: 18px; margin-bottom: 20px; color: #666; }
+        .correct { color: #4a7c44; }
+        .wrong { color: #d14d72; }
+    </style>
+</head>
+<body>
+
+<div class="game-container" id="gameBox">
+    <div class="score-board">Điểm: <span id="currentScore">0</span></div>
+    <div id="quizArea">
+        <div class="question-box" id="vietnameseQuestion">Đang tải...</div>
+        <input type="text" id="hanziInput" placeholder="Gõ Hán tự vào đây..." autocomplete="off">
+        <br>
+        <button class="btn" onclick="checkAnswer()">Kiểm tra</button>
+        <div class="result" id="resultMsg"></div>
+    </div>
+</div>
+
+<script>
+    // Dữ liệu câu hỏi
+    const quizData = [
+        { vi: "Bạn thích môn thể thao nào?", zh: "你喜欢什么运动" },
+        { vi: "Mình thích bóng đá nhất.", zh: "我最喜欢踢足球" },
+        { vi: "Vậy buổi chiều chúng ta cùng đi đá bóng nhé.", zh: "下午我们一起去踢足球吧" },
+        { vi: "Được đấy!", zh: "好啊" } 
+    ]; // Đã sửa dấu đóng ngoặc mảng ở đây
+
+    let currentIdx = 0;
+    let score = 0;
+
+    function loadQuestion() {
+        if (currentIdx < quizData.length) {
+            document.getElementById('vietnameseQuestion').innerText = quizData[currentIdx].vi;
+            document.getElementById('hanziInput').value = "";
+            document.getElementById('resultMsg').innerText = "";
+            document.getElementById('hanziInput').focus(); // Tự động trỏ chuột vào ô nhập
+        } else {
+            showFinalResult();
+        }
+    }
+
+    function checkAnswer() {
+        const userInput = document.getElementById('hanziInput').value.trim();
+        const correctAnswer = quizData[currentIdx].zh;
+        const resultMsg = document.getElementById('resultMsg');
+
+        // So sánh không phân biệt dấu câu toàn chiều (nếu cần Ngân có thể thêm logic xóa dấu câu)
+        if (userInput === correctAnswer) {
+            score += 10;
+            document.getElementById('currentScore').innerText = score;
+            resultMsg.innerHTML = '<span class="correct">Chính xác! +10 điểm</span>';
+            
+            setTimeout(() => {
+                currentIdx++;
+                loadQuestion();
+            }, 1000);
+        } else {
+            resultMsg.innerHTML = '<span class="wrong">Chưa đúng, thử lại nhé!</span>';
+        }
+    }
+
+    function showFinalResult() {
+        document.getElementById('quizArea').innerHTML = `
+            <h2 class="correct">Hoàn thành!</h2>
+            <p style="font-size: 20px;">Tổng điểm của bạn là: <strong>${score}</strong></p>
+            <button class="btn" onclick="location.reload()">Chơi lại</button>
+            <br><br>
+            <a href="hsk2_bai1.html" style="color: #d14d72; text-decoration: none; font-weight: bold;">← Quay lại chọn bài</a>
+        `;
+    }
+
+    loadQuestion();
+
+    document.getElementById('hanziInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            checkAnswer();
+        }
+    });
+</script>
+
+</body>
+</html>
