@@ -23,7 +23,7 @@
             max-width: 500px;
             text-align: center;
         }
-        .question-box { font-size: 24px; color: #d14d72; margin-bottom: 20px; font-weight: bold; }
+        .question-box { font-size: 20px; color: #d14d72; margin-bottom: 20px; font-weight: bold; line-height: 1.5; }
         input[type="text"] {
             width: 80%;
             padding: 12px;
@@ -65,12 +65,14 @@
 </div>
 
 <script>
-    // Dữ liệu câu hỏi (Ngân có thể thay đổi hoặc thêm từ Excel của mình vào đây)
+    // Dữ liệu câu hỏi
     const quizData = [
         { vi: "Mình sẽ đi Bắc Kinh để du lịch, theo bạn thì đi vào khi nào là tốt nhất?", zh: "我要去北京旅游，你觉得什么时候去最好" },
         { vi: "Nếu đi Bắc Kinh để du lịch thì tốt nhất là đi vào tháng chín", zh: "九月去北京旅游最好" },
         { vi: "Tại sao?", zh: "为什么" },
-        { vi: "Vì vào tháng chín, thời tiết ở Bắc Kinh không lạnh cũng không nóng.", zh: "九月的北京天气不冷也不热" }，
+        { vi: "Vì vào tháng chín, thời tiết ở Bắc Kinh không lạnh cũng không nóng.", zh: " because 九月的北京天气不冷也不热" } 
+    ]; // Đã sửa dấu đóng ngoặc mảng ở đây
+
     let currentIdx = 0;
     let score = 0;
 
@@ -79,6 +81,7 @@
             document.getElementById('vietnameseQuestion').innerText = quizData[currentIdx].vi;
             document.getElementById('hanziInput').value = "";
             document.getElementById('resultMsg').innerText = "";
+            document.getElementById('hanziInput').focus(); // Tự động trỏ chuột vào ô nhập
         } else {
             showFinalResult();
         }
@@ -89,12 +92,12 @@
         const correctAnswer = quizData[currentIdx].zh;
         const resultMsg = document.getElementById('resultMsg');
 
+        // So sánh không phân biệt dấu câu toàn chiều (nếu cần Ngân có thể thêm logic xóa dấu câu)
         if (userInput === correctAnswer) {
             score += 10;
             document.getElementById('currentScore').innerText = score;
             resultMsg.innerHTML = '<span class="correct">Chính xác! +10 điểm</span>';
             
-            // Đợi 1 giây rồi sang câu tiếp theo
             setTimeout(() => {
                 currentIdx++;
                 loadQuestion();
@@ -110,14 +113,12 @@
             <p style="font-size: 20px;">Tổng điểm của bạn là: <strong>${score}</strong></p>
             <button class="btn" onclick="location.reload()">Chơi lại</button>
             <br><br>
-            <a href="hsk2_bai1.html" style="color: #d14d72; text-decoration: none;">← Quay lại chọn bài</a>
+            <a href="hsk2_bai1.html" style="color: #d14d72; text-decoration: none; font-weight: bold;">← Quay lại chọn bài</a>
         `;
     }
 
-    // Bắt đầu game
     loadQuestion();
 
-    // Cho phép nhấn phím Enter để kiểm tra
     document.getElementById('hanziInput').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             checkAnswer();
