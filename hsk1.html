@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Từ vựng HSK 1 - JinYin</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(rgba(255,245,247,0.8), rgba(255,245,247,0.8)), url('roadmap.png');
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Thanh điều hướng nhanh giữa các HSK */
+        .hsk-nav {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hsk-nav a {
+            text-decoration: none;
+            padding: 8px 20px;
+            background: white;
+            border-radius: 20px;
+            color: #555;
+            font-weight: bold;
+            border: 1px solid #ddd;
+            transition: 0.3s;
+        }
+
+        .hsk-nav a.active {
+            background: #ff8aaf; /* Màu xanh lá đậm như ảnh mẫu */
+            color: white;
+            border-color: #ffabca;
+        }
+
+        /* Lưới chứa các thẻ từ vựng */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            width: 90%;
+            max-width: 1000px;
+            padding-bottom: 50px;
+        }
+
+        /* Giao diện từng thẻ (Card) */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 25px 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card .icon { font-size: 40px; margin-bottom: 5px; }
+
+        .card .hanzi {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .card .pinyin { color: #d14d72; font-size: 14px; margin: 0; }
+
+        .card .meaning {
+            font-size: 16px;
+            color: #d14d72;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .card .tag {
+            background: #fdf2f2;
+            color: #d14d72;
+            font-size: 11px;
+            padding: 3px 12px;
+            border-radius: 10px;
+            margin-top: 10px;
+            border: 1px solid #fee2e2;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu nhanh -->
+    <div class="hsk-nav">
+        <a href="index.html">🏠 Trang chủ</a>
+        <a href="#" class="active">HSK 1</a>
+        <a href="HSK2.html">HSK 2</a>
+        <a href="HSK3.html">HSK 3</a>
+        <a href="HSK4.html">HSK 4</a>
+    </div>
+
+    <h1 style="color: #4a7c44;">Bài Khóa HSK 2</h1>
+
+    <div class="vocab-grid">
+        <!-- Thẻ 1 -->
+        <div class="card">
+            <div class="icon">🌱</div>
+            <p class="hanzi">九月去北京旅游最好</p>
+            <p class="meaning">Nếu đi Bắc Kinh để du lịch thì tốt nhất là đi vòa tháng 9</p>
+            <div class="tag">HSK 2 - Bài 1</div>
+        </div>
+
+        <!-- Thẻ 2 -->
+        <div class="card">
+            <div class="icon">🌿</div>
+            <p class="hanzi">我每天六点起床</p>
+            <p class="meaning">Hàng ngày tôi thức dậy lúc 6 giờ</p>
+            <div class="tag">HSK 2 - Bài 2</div>
+        </div>
+
+        <!-- Thẻ 3 -->
+        <div class="card">
+            <div class="icon">🍀</div>
+            <p class="hanzi">左边那个红色的是我的</p>
+            <p class="meaning">Ly màu đỏ ở bên trái là của tôi</p>
+            <div class="tag">HSK 2 - Bài 3</div>
+        </div>
+
+        <!-- Thẻ 4 -->
+        <div class="card">
+            <div class="icon">🌸</div>
+            <p class="hanzi">这个工作是他帮我介绍的</p>
+            <p class="meaning">Ông ấy đã giới thiệu giúp tôi công việc này</p>
+            <div class="tag">HSK 2 - Bài 4</div>
+        </div>
+      
+          <!-- Thẻ 5 -->
+        <div class="card">
+            <div class="icon">🌸</div>
+            <p class="hanzi">就买这件吧</p>
+            <p class="meaning">Mua chiếc áo này đi</p>
+            <div class="tag">HSK 2  - Bài 5</div>
+        </div>
+      
+      <!-- Thẻ 6 -->
+        <div class="card">
+            <div class="icon">🌸</div>
+            <p class="hanzi">你怎么不吃呢</p>
+            <p class="meaning">Sao anh không ăn nữa</p>
+            <div class="tag">HSK 2  - Bài 6</div>
+        </div>
+
+      <!-- Thẻ 7 -->
+        <div class="card">
+            <div class="icon">🌸</div>
+            <p class="hanzi">你家里公司源码</p>
+            <p class="meaning">Nhà chị có ở xa công ty không</p>
+            <div class="tag">HSK 2  - Bài 7</div>
+        </div>
+
+      <!-- Thẻ 8 -->
+        <div class="card">
+            <div class="icon">🌸</div>
+            <p class="hanzi">让我想想再告诉你</p>
+            <p class="meaning">Để mình suy nghĩ rồi sẽ nói cho bạn biết</p>
+            <div class="tag">HSK 2  - Bài 8</div>
+        </div>
+
+      <!-- Thẻ 9 -->
+        <div class="card">
+            <div class="icon">🌸</div>
+            <p class="hanzi">提太多，我没做完</p>
+            <p class="meaning">Câu hỏi quá nhiều nên mình không làm hết</p>
+            <div class="tag">HSK 2  - Bài 9</div>
+        </div>
+
+      <!-- Thẻ 10 -->
+        <div class="card">
+            <div class="icon">🌸</div>
+            <p class="hanzi">别找了，手机在桌子上了</p>
+            <p class="meaning">Đừng tìm nữa, điện thoại di động ở trên bàn kìa</p>
+            <div class="tag">HSK 2  - Bài 10</div>
+        </div>
+       
+    </div>
+
+</body>
+</html>
