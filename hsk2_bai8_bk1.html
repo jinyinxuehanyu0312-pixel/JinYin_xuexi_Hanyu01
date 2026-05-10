@@ -6,7 +6,7 @@
     <title>Game Chép Chính Tả HSK 2 - JinYin</title>
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #fdf2f2;
             display: flex;
             justify-content: center;
@@ -55,7 +55,7 @@
             transition: 0.3s;
         }
         .btn:hover { background: #3d6638; }
-        .result { margin-top: 20px; font-weight: bold; height: 24px; }
+        .result { margin-top: 20px; font-weight: bold; min-height: 24px; }
         .score-board { font-size: 18px; margin-bottom: 20px; color: #666; }
         .correct { color: #4a7c44; }
         .wrong { color: #d14d72; }
@@ -73,14 +73,26 @@
             justify-content: center;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+        /* Màn hình bắt đầu để kích hoạt âm thanh */
+        #startScreen {
+            display: block;
+        }
+        #quizArea {
+            display: none;
+        }
     </style>
 </head>
 <body>
 
 <div class="game-container" id="gameBox">
-    <div class="score-board">Điểm: <span id="currentScore">0</span></div>
-    
+    <div id="startScreen">
+        <h2 style="color: #d14d72;">JinYin chào bạn! Sẵn sàng chưa?</h2>
+        <p>Nhấn nút bên dưới để bắt đầu nghe và viết nhé.</p>
+        <button class="btn" onclick="startGame()">Bắt đầu học</button>
+    </div>
+
     <div id="quizArea">
+        <div class="score-board">Điểm: <span id="currentScore">0</span></div>
         <div class="question-box">
             <span id="vietnameseQuestion">Đang tải...</span>
             <button class="audio-btn" onclick="speakChinese()">🔊</button>
@@ -95,17 +107,25 @@
 
 <script>
     const quizData = [
-    { vi: "Buổi chiều chúng ta đi xem phim được không?", zh: "我们下午去看电影，好吗？" },
-    { vi: "Chiều nay mình không rảnh rồi, chiều mai hãy đi vậy!", zh: "今天下午没有时间，明天下午再去吧。" },
-    { vi: "Bạn muốn xem phim gì?", zh: "你想看什么电影？" },
-    { vi: "Để mình suy nghĩ rồi sẽ nói cho bạn biết.", zh: "让我想想再告诉你。" }
-];
+        { vi: "Buổi chiều chúng ta đi xem phim được không?", zh: "我们下午去看电影，好吗？" },
+        { vi: "Chiều nay mình không rảnh rồi, chiều mai hãy đi vậy!", zh: "今天下午没有时间，明天下午再去吧。" },
+        { vi: "Bạn muốn xem phim gì?", zh: "你想看什么电影？" },
+        { vi: "Để mình suy nghĩ rồi sẽ nói cho bạn biết.", zh: "让我想想再告诉你。" }
+    ];
 
     let currentIdx = 0;
     let score = 0;
 
-    // Hàm phát âm tiếng Trung
+    function startGame() {
+        document.getElementById('startScreen').style.display = 'none';
+        document.getElementById('quizArea').style.display = 'block';
+        loadQuestion();
+    }
+
     function speakChinese() {
+        // Hủy các câu đang đọc dở để tránh chồng chéo
+        window.speechSynthesis.cancel();
+        
         const text = quizData[currentIdx].zh;
         const msg = new SpeechSynthesisUtterance();
         msg.text = text;
@@ -121,8 +141,8 @@
             document.getElementById('resultMsg').innerText = "";
             document.getElementById('hanziInput').focus();
             
-            // Tự động đọc câu sau 0.5s để người học nghe
-            setTimeout(speakChinese, 500);
+            // Đọc câu hỏi
+            setTimeout(speakChinese, 300);
         } else {
             showFinalResult();
         }
@@ -133,9 +153,9 @@
         const correctAnswer = quizData[currentIdx].zh;
         const resultMsg = document.getElementById('resultMsg');
 
-        // Logic so sánh: loại bỏ dấu câu cơ bản để tránh lỗi nếu người dùng không gõ dấu câu
-        const cleanUser = userInput.replace(/[。？！，,.?!]/g, "");
-        const cleanCorrect = correctAnswer.replace(/[。？！，,.?!]/g, "");
+        // Làm sạch chuỗi: xóa khoảng trắng và các dấu câu phổ biến trong tiếng Trung/Anh
+        const cleanUser = userInput.replace(/[。？！，,.?! ]/g, "");
+        const cleanCorrect = correctAnswer.replace(/[。？！，,.?! ]/g, "");
 
         if (cleanUser === cleanCorrect) {
             score += 10;
@@ -148,21 +168,19 @@
             }, 1000);
         } else {
             resultMsg.innerHTML = '<span class="wrong">Chưa đúng, nghe lại và thử nhé!</span>';
+            speakChinese(); // Đọc lại câu nếu sai để người học nghe lại
         }
     }
 
     function showFinalResult() {
         document.getElementById('quizArea').innerHTML = `
-            <h2 class="correct">Hoàn thành!</h2>
+            <h2 class="correct">Hoàn thành xuất sắc!</h2>
             <p style="font-size: 20px;">Tổng điểm của bạn là: <strong>${score}</strong></p>
             <button class="btn" onclick="location.reload()">Chơi lại</button>
             <br><br>
             <a href="hsk2_bai1.html" style="color: #d14d72; text-decoration: none; font-weight: bold;">← Quay lại chọn bài</a>
         `;
     }
-
-    // Khởi tạo câu hỏi đầu tiên
-    loadQuestion();
 
     document.getElementById('hanziInput').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
