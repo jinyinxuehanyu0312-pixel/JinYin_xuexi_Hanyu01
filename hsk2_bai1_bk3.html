@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Chép Chính Tả HSK 2</title>
+    <title>Game Chép Chính Tả HSK 2 - JinYin</title>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -23,7 +23,17 @@
             max-width: 500px;
             text-align: center;
         }
-        .question-box { font-size: 20px; color: #d14d72; margin-bottom: 20px; font-weight: bold; line-height: 1.5; }
+        .question-box { 
+            font-size: 20px; 
+            color: #d14d72; 
+            margin-bottom: 20px; 
+            font-weight: bold; 
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
         input[type="text"] {
             width: 80%;
             padding: 12px;
@@ -49,15 +59,34 @@
         .score-board { font-size: 18px; margin-bottom: 20px; color: #666; }
         .correct { color: #4a7c44; }
         .wrong { color: #d14d72; }
+        .audio-btn {
+            background: #ff8aaf;
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
 
 <div class="game-container" id="gameBox">
     <div class="score-board">Điểm: <span id="currentScore">0</span></div>
+    
     <div id="quizArea">
-        <div class="question-box" id="vietnameseQuestion">Đang tải...</div>
-        <input type="text" id="hanziInput" placeholder="Gõ Hán tự vào đây..." autocomplete="off">
+        <div class="question-box">
+            <span id="vietnameseQuestion">Đang tải...</span>
+            <button class="audio-btn" onclick="speakChinese()">🔊</button>
+        </div>
+        
+        <input type="text" id="hanziInput" placeholder="Nghe và gõ Hán tự..." autocomplete="off">
         <br>
         <button class="btn" onclick="checkAnswer()">Kiểm tra</button>
         <div class="result" id="resultMsg"></div>
@@ -65,7 +94,6 @@
 </div>
 
 <script>
-     // Dữ liệu câu hỏi
     const quizData = [
         { 
             vi: "Chúng ta có cần mua mấy chiếc ghế dựa mới không?", 
@@ -88,15 +116,31 @@
             zh: "三点多" 
         }
     ];
+
+
+
     let currentIdx = 0;
     let score = 0;
+
+    // Hàm phát âm tiếng Trung
+    function speakChinese() {
+        const text = quizData[currentIdx].zh;
+        const msg = new SpeechSynthesisUtterance();
+        msg.text = text;
+        msg.lang = 'zh-CN'; 
+        msg.rate = 0.8; 
+        window.speechSynthesis.speak(msg);
+    }
 
     function loadQuestion() {
         if (currentIdx < quizData.length) {
             document.getElementById('vietnameseQuestion').innerText = quizData[currentIdx].vi;
             document.getElementById('hanziInput').value = "";
             document.getElementById('resultMsg').innerText = "";
-            document.getElementById('hanziInput').focus(); // Tự động trỏ chuột vào ô nhập
+            document.getElementById('hanziInput').focus();
+            
+            // Tự động đọc câu sau 0.5s để người học nghe
+            setTimeout(speakChinese, 500);
         } else {
             showFinalResult();
         }
@@ -107,8 +151,11 @@
         const correctAnswer = quizData[currentIdx].zh;
         const resultMsg = document.getElementById('resultMsg');
 
-        // So sánh không phân biệt dấu câu toàn chiều (nếu cần Ngân có thể thêm logic xóa dấu câu)
-        if (userInput === correctAnswer) {
+        // Logic so sánh: loại bỏ dấu câu cơ bản để tránh lỗi nếu người dùng không gõ dấu câu
+        const cleanUser = userInput.replace(/[。？！，,.?!]/g, "");
+        const cleanCorrect = correctAnswer.replace(/[。？！，,.?!]/g, "");
+
+        if (cleanUser === cleanCorrect) {
             score += 10;
             document.getElementById('currentScore').innerText = score;
             resultMsg.innerHTML = '<span class="correct">Chính xác! +10 điểm</span>';
@@ -118,7 +165,7 @@
                 loadQuestion();
             }, 1000);
         } else {
-            resultMsg.innerHTML = '<span class="wrong">Chưa đúng, thử lại nhé!</span>';
+            resultMsg.innerHTML = '<span class="wrong">Chưa đúng, nghe lại và thử nhé!</span>';
         }
     }
 
@@ -132,6 +179,7 @@
         `;
     }
 
+    // Khởi tạo câu hỏi đầu tiên
     loadQuestion();
 
     document.getElementById('hanziInput').addEventListener('keypress', function (e) {
